@@ -1,0 +1,22 @@
+﻿@model Item;
+<div class="w-100 d-flex justify-content-center mt-lg-2 ">
+
+    <form method="post" class="d-flex flex-column gap-4  w-25 pt-lg-2">
+        <div class="d-flex justify-content-between">
+
+            <label>Id:</label>
+            <input type="text" asp-for="Id" readonly />
+        </div>
+        <div class="d-flex justify-content-between">
+
+            <label>Name:</label>
+            <input type="text" asp-for="Name" />
+        </div>
+        <div class="d-flex justify-content-between ">
+
+            <label>Description:</label>
+            <input type="text" asp-for="Description" />
+        </div>
+        <button class="bg-primary align-self-center w-25 px-2 py-1 rounded-1">Submit</button>
+    </form>
+</div>

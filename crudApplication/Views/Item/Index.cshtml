@@ -1,0 +1,29 @@
+﻿@model List<Item>
+<div class="container d-flex justify-content-center w-100 h-100 m-auto pt-10">
+<table class="w-50 p-5 mt-lg-5">
+<thead>
+    <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th colspan="2">Action</th>
+        
+    </tr>
+</thead>
+<tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td ><a asp-controller="Item" asp-action="Edit" asp-route-id="@item.Id"
+                >Edit</a></td>
+                <td><a asp-controller="Item" asp-action="Delete" asp-route-id
+                    ="@item.Id" onclick="return confirm('Are you sure?')">Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
