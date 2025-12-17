@@ -1,6 +1,15 @@
 ﻿@model List<Item>
-<div class="container d-flex justify-content-center w-100 h-100 m-auto pt-10">
-<table class="w-50 p-5 mt-lg-5">
+@{
+    int total = (int)ViewData["totalPage"]!;
+    int pageNumber = (int)ViewData["pageNumber"]!;
+    string search =(string) ViewData["search"]!;
+}
+<div class="container d-flex flex-column justify-content-center w-100 h-100 mx-auto pt-10">
+    <form class="d-flex mx-auto gap-2 mt-4 " role="search">
+        <input value="@search" class="px-2 py-1 bg-white text-black" name="search" aria-label="search"/>
+        <button class="p-2 bg-primary">Submit</button>
+    </form>
+<table class="w-50 p-5 mt-lg-2 mx-auto">
 <thead>
     <tr>
         <th>S.N</th>
@@ -25,5 +34,14 @@
             </tr>
         }
     </tbody>
-</table>
+      
+    </table>
+ 
+</div>
+<div class="text-center mx-auto mt-3">
+    @for (int i = 1; i <= total; i++)
+    {
+        var active = i == pageNumber ? "bg-primary text-white" : "bg-secondary text-black";
+        <a asp-action="Index" asp-route-search="@search" asp-controller="Item" asp-route-pageNumber="@i" class="text-decoration-none @active  p-2   rounded">@i</a>
+    }
 </div>

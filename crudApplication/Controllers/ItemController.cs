@@ -7,14 +7,34 @@ namespace crudApplication.Controllers
     public class ItemController : Controller
     {
         private readonly  ApplicationDbContext context;
+        private int pagesize=5;
+        IQueryable<Item> queryable;
         public ItemController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber, string? search)
         {
-            var ItemList=context.ListItem.ToList();
+           
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+            queryable = context.ListItem;
+            if (search != null)
+            {
+                queryable = queryable.Where(val => val.Name == search || val.Description==search);
+            }
+
+            decimal totalPage = Math.Ceiling((decimal)queryable.Count() / pagesize);
+            
+          
+            var ItemList=queryable.Skip((pageNumber-1)*pagesize).Take(pagesize).ToList();
+           
+            ViewData["totalPage"] =(int) totalPage;
+            ViewData["pageNumber"] = (int)pageNumber;
+            ViewData["search"] = search;
             return View(ItemList);
         }
         public IActionResult Create()
@@ -24,6 +44,10 @@ namespace crudApplication.Controllers
         [HttpPost]
         public IActionResult Create(Item item)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(item);
+            }
 
             context.ListItem.Add(item);
             context.SaveChanges();
