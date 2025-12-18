@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace crudApplication.Models
 {
@@ -12,5 +14,11 @@ namespace crudApplication.Models
         public string Description { get; set; } = "";
         [Required]
         public DateTime CreatedDate { get; set; }= DateTime.Now;
+        [AllowNull,MaxLength(100)]
+        public string ImageFileName { get; set; }="";
+
+        [NotMapped]
+        public IFormFile? Image { get; set; }
+       
     }
 }

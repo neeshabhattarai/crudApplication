@@ -37,6 +37,11 @@ namespace crudApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageFileName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -44,7 +49,7 @@ namespace crudApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ListItem");
+                    b.ToTable("ItemLists");
                 });
 #pragma warning restore 612, 618
         }

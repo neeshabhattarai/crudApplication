@@ -1,9 +1,42 @@
-﻿@model List<Item>
+﻿@using Microsoft.AspNetCore.Html;
+@model List<Item>
 @{
     int total = (int)ViewData["totalPage"]!;
     int pageNumber = (int)ViewData["pageNumber"]!;
-    string search =(string) ViewData["search"]!;
+    string search =(string)ViewData["search"]!;
+    string orderBy = (string)ViewData["orderBy"]!;
+    string column = (string)ViewData["column"]!;
+  HtmlString getColumn(string? column)
+    {
+        if (column == null) return new HtmlString("");
+        if (orderBy == "asc")
+        {
+            return new HtmlString("<i class='bi bi-arrow-up'></i>");
+        }
+        else
+        {
+            return new HtmlString("<i class='bi bi-arrow-down'></i>");
+
+        }
+    }
 }
+
+<script>
+    function sortTable(column){
+        var search="@search";
+        var orderBy="@orderBy";
+        if(orderBy=="asc"){
+            orderBy="desc";
+        }else{
+            orderBy="asc";
+        }
+        window.location.href="?column="+column+"&search="+search+"&orderBy="+orderBy;
+
+    }
+
+</script>
+
+
 <div class="container d-flex flex-column justify-content-center w-100 h-100 mx-auto pt-10">
     <form class="d-flex mx-auto gap-2 mt-4 " role="search">
         <input value="@search" class="px-2 py-1 bg-white text-black" name="search" aria-label="search"/>
@@ -12,10 +45,12 @@
 <table class="w-50 p-5 mt-lg-2 mx-auto">
 <thead>
     <tr>
-        <th>S.N</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th colspan="2">Action</th>
+        <th onclick="sortTable('ID')" style="cursor:pointer;">S.N @getColumn("Id")</th>
+                <th onclick="sortTable('Name')" style="cursor:pointer;">Name @getColumn("Name")</th>
+                <th onclick="sortTable('Description')" style="cursor:pointer;">Description @getColumn("Description")</th>
+                <th>Image</th>
+                <th colspan="2" style="cursor:pointer;">Action</th>
+
         
     </tr>
 </thead>
@@ -26,6 +61,8 @@
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>@item.Description</td>
+               
+                <td><img height="70px" width="100px" src="/product/@(item.ImageFileName)" alt="Alternate Text" /> </td>
                 <td ><a asp-controller="Item" asp-action="Edit" asp-route-id="@item.Id"
                 >Edit</a></td>
                 <td><a asp-controller="Item" asp-action="Delete" asp-route-id

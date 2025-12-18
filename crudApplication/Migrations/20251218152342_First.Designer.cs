@@ -12,8 +12,8 @@ using crudApplication.Service;
 namespace crudApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251215151731_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20251218152342_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,11 @@ namespace crudApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageFileName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -47,7 +52,7 @@ namespace crudApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ListItem");
+                    b.ToTable("ItemLists");
                 });
 #pragma warning restore 612, 618
         }

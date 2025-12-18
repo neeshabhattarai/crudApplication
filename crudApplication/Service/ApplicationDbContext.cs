@@ -6,6 +6,6 @@ namespace crudApplication.Service
     public class ApplicationDbContext:DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
-        public DbSet<Item> ListItem { get; set; }
+        public DbSet<Item> ItemLists { get; set; }
     }
 }
