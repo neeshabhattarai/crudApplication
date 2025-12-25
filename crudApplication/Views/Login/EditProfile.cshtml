@@ -1,0 +1,25 @@
+﻿@model EditProfile;
+@{
+    var id = ViewData["Id"];
+}
+<form method="post" class="mt-lg-5 d-flex flex-column gap-3 w-25">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    
+    <div class="d-flex justify-content-between">
+        <label>FirstName:</label>
+        <input type="text" asp-for="FirstName" />
+        <span class="text-danger" asp-validation-for="FirstName"></span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <label>LastName:</label>
+        <input type="text" asp-for="LastName" />
+        <span class="text-danger" asp-validation-for="LastName"></span>
+    </div>
+    <div class="d-flex justify-content-between">
+        <label>Email:</label>
+        <input type="text" asp-for="Email" />
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
+    <button asp-route-id="@id">Submit</button>
+
+</form>

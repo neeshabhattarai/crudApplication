@@ -1,20 +1,33 @@
 ﻿using crudApplication.Models;
 using crudApplication.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crudApplication.Controllers
 {
-    [Route("Admin/[action]")]
+    [Route("/Admin/[action]")]
+    //[Authorize(Roles ="admin")]
+    //[Route("Admin/[action]")]
     public class ItemController : Controller
     {
         private readonly  ApplicationDbContext context;
+       
         private int pagesize=5;
         IQueryable<Item> queryable;
         public IWebHostEnvironment environment;
         public ItemController(ApplicationDbContext context,IWebHostEnvironment enviornment)
         {
             this.context = context;
+            
             this.environment = enviornment;
+        }
+        [HttpGet]
+        [ResponseCache(Duration=300)]
+        public ActionResult<CategoryModel> Test()
+        {
+            var categoryProvider = new Category();
+            var categories = categoryProvider.AllowedCategories();
+            return new CategoryModel(categories);
         }
 
         public IActionResult Index(int pageNumber, string? search,string? column,string? orderBy)

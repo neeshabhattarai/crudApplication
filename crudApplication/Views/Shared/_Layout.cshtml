@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +30,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="Create">Create</a>
                         </li>
+                       @using Microsoft.AspNetCore.Identity
+                       @inject SignInManager<ApplicationUser> signInManger
+                       @inject UserManager<ApplicationUser> userManager
+
+                        @if (signInManger.IsSignedIn(User))
+                        {
+                            var appUser = await userManager.GetUserAsync(User);
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    @(appUser.FirstName) Admin
+                                </li>
+                                <a asp-controller="Login" asp-action="Profile">Profile</a>
+                                <li>Logout</li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @(appUser.FirstName) Client
+                                </li>
+                                <a asp-controller="Login" asp-action="Profile">Profile</a>
+
+                                <a asp-Controller="Login" asp-Action="Logout">Logout</a>
+                            }
+
+                        }
+                        else
+                        {
+                            <a asp-controller="Login" asp-Action="Index">Login</a>
+                        }
+
+                       
                     </ul>
                 </div>
             </div>
@@ -50,4 +83,4 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+</html> 

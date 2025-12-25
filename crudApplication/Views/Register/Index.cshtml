@@ -1,0 +1,65 @@
+﻿@model RegisterUser
+
+<div asp-validation-summary="ModelOnly" class="text-danger" ></div>
+<form class="w-50 p-5 d-flex flex-column gap-4 bg-secondary mx-auto my-2 text-white" method="post">
+    <div class="d-flex flex-column">
+        <div class="d-flex justify-content-between">
+
+        <label>FirstName:</label>
+        <input type="text" asp-for="FirstName"/>
+        </div>
+        <span class="text-danger" asp-validation-for="FirstName"></span>
+
+    </div>
+    <div class="d-flex flex-column">
+        <div class="d-flex justify-content-between">
+
+            <label>Email:</label>
+            <input type="email" asp-for="Email" />
+        </div>
+        <span class="text-danger" asp-validation-for="Email"></span>
+
+    </div>
+    <div class="d-flex flex-column">
+
+        <div class="d-flex justify-content-between">
+
+        <label>LastName:</label>
+        <input type="text" asp-for="LastName" />
+    </div>
+    <span class="text-danger" asp-validation-for="LastName"></span>
+
+    </div>
+    <div class="d-flex flex-column ">
+
+        <div class="d-flex justify-content-between">
+
+        <label>UserName:</label>
+        <input type="text" asp-for="UserName" />
+    </div>
+    <span class="text-danger" asp-validation-for="UserName"></span>
+
+    </div>
+    <div class="d-flex flex-column">
+
+        <div class="d-flex justify-content-between">
+
+        <label>PhoneNumber:</label>
+        <input type="text" asp-for="PhoneNumber" />
+    </div>
+    <span class="text-danger" asp-validation-for="PhoneNumber"/>
+
+    </div>
+    <div class="d-flex flex-column">
+
+        <div class="d-flex justify-content-between">
+
+        <label>Password:</label>
+        <input type="text" asp-for="Password" />
+    </div>
+    <span class="text-danger" asp-validation-for="Password"></span>
+
+    </div>
+    <button>Submit</button>
+
+</form>
