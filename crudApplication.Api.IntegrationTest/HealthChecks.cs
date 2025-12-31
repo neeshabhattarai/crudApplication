@@ -12,7 +12,7 @@ namespace crudApplication.Api.IntegrationTest
         [Fact]
         public async Task HealthChecksOk()
         {
-            var request = await _httpClient.GetAsync("http://localhost:7149/Admin/Index");
+            var request = await _httpClient.GetAsync("http://localhost:5112/Admin/Item/Index");
             request.EnsureSuccessStatusCode();
         }
     }

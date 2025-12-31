@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace crudApplication.Controllers
 {
-    [Route("/Admin/[action]")]
+   
+    [Route("/Admin/[controller]/{action=Index}")]
     //[Authorize(Roles ="admin")]
     //[Route("Admin/[action]")]
     public class ItemController : Controller
@@ -114,29 +115,33 @@ namespace crudApplication.Controllers
                 return View(item);
             }
 
-            if (item.Image == null)
+            if (item.Image!=null)
             {
-                return View(item);
-            }
-            var fileName = DateTime.Now.ToString("yyyyMMddHHmmfff");
-            fileName += Path.GetExtension(item.Image.FileName);
-            var imagePath = environment.WebRootPath + "/product/" + fileName;
-            using (var stream = System.IO.File.Create(imagePath))
-            {
-                item.Image.CopyTo(stream);
-            }
-            Item itemList = new Item()
-            {
-                Name = item.Name,
-                Description = item.Description,
-                ImageFileName = fileName,
-                CreatedDate= DateTime.Now,
-                
-            };
+                var fileName = DateTime.Now.ToString("yyyyMMddHHmmfff");
+                fileName += Path.GetExtension(item.Image.FileName);
+                var imagePath = environment.WebRootPath + "/product/" + fileName;
+                using (var stream = System.IO.File.Create(imagePath))
+                {
+                    item.Image.CopyTo(stream);
+                }
+                Item itemList = new Item()
+                {
+                    Name = item.Name,
+                    Description = item.Description,
+                    ImageFileName = fileName,
+                    CreatedDate = DateTime.Now,
 
-            context.ItemLists.Add(itemList);
+                };
+
+                context.ItemLists.Add(itemList);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Item");
+            }
+
+            context.ItemLists.Add(item);
             context.SaveChanges();
-            return RedirectToAction("Index","Item");
+            return RedirectToAction("Index", "Item");
+
         }
         public IActionResult Edit(int id) { 
         Item item=context.ItemLists.Find(id);

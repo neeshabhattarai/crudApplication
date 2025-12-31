@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace crudApplication.Controllers
 {
+    [ApiController]
+    [Route("/api/[controller]/{action=Index}")]
     public class LoginController : Controller
     {
+       
         private readonly  UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> signInManager;
 

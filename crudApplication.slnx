@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="crudApplication.Api.IntegrationTest/crudApplication.Api.IntegrationTest.csproj" Id="f255f261-aa62-4dc8-a851-4949c6655dcd" />
+  <Project Path="crudApplication.UnitTest/crudApplication.UnitTest.csproj" Id="bab644d9-22db-49f4-ae2e-e524e8ddc092" />
   <Project Path="crudApplication/crudApplication.csproj" />
 </Solution>
